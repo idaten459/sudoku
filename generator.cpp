@@ -251,14 +251,15 @@ class generator {
 private:
 	board_bit gene;
 	solver_bit sd2;
+    std::random_device seed_gen;
+    std::mt19937_64 engine;
 public:
 	generator(){
+        engine.seed(time(nullptr));
 		init();
 	}
 	void init() {
-		std::random_device seed_gen;
-		std::mt19937_64 engine(seed_gen());
-		const int loop = 10;
+        const int loop = 10;
 		for (int i = 0; i < loop; ++i) {
 			int x = engine() % 9;
 			int y = engine() % 9;
@@ -304,8 +305,6 @@ public:
 					popList.push_back(i);
 				}
 			}
-			std::random_device seed_gen;
-			std::mt19937_64 engine(seed_gen());
 			int t = min<int>(30, popList.size());
 			shuffle(popList.begin(), popList.end(), engine);
 			vector<int> randomIndex(t), cn(t), indList(t);
@@ -341,9 +340,6 @@ public:
 			preGene = sd.get_board();
 		}
 		return;
-	}
-	void dfs() {
-
 	}
 };
 
