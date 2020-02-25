@@ -3,7 +3,7 @@ using namespace std;
 
 using board_ary = array<array<int, 9 * 9>, 9>;
 
-class sudoku {
+class solver {
 private:
 	board_ary b1;
 	bool check(int num) {
@@ -59,11 +59,11 @@ private:
 		return true;
 	}
 public:
-	sudoku(int b2[9][9]) {
+	solver(int b2[9][9]) {
 		init(b2);
 	}
-	sudoku() {}
-	sudoku(board_ary ba) {
+	solver() {}
+	solver(board_ary ba) {
 		for (int i = 0; i < 9; ++i) {
 			for (int j = 0; j < 81; ++j) {
 				b1[i][j] = ba[i][j];
@@ -160,7 +160,7 @@ public:
 		return;
 	}
 	int cnt = 0;
-	void dfs(sudoku b, int index) {
+	void dfs(solver b, int index) {
 		if (index == 81) {
 			if (b.check()) {
 				b.print();
@@ -177,7 +177,7 @@ public:
 		if (b.get(y, x) >= 0) {
 			dfs(b, index + 1);
 		} else {
-			sudoku b2(b.get_board());
+			solver b2(b.get_board());
 			for (int i = 0; i < 9; ++i) {
 				b2.set(y, x, i);
 				if (b2.check()) {
@@ -190,7 +190,7 @@ public:
 };
 
 int main() {
-	sudoku b1;
+	solver b1;
 	b1.input();
 	b1.solve();
 	cout << b1.cnt << endl;
