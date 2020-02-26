@@ -259,7 +259,7 @@ public:
 		init();
 	}
 	void init() {
-        const int loop = 10;
+        const int loop = 20;
 		for (int i = 0; i < loop; ++i) {
 			int x = engine() % 9;
 			int y = engine() % 9;
@@ -276,8 +276,8 @@ public:
 				sd2.set(y, x, num);
 				sd2.solve(true);
 			}
-			sd2.print();
-			cout << "\n";
+			//sd2.print();
+			//cout << "\n";
 			if (cnt == 1)
 				break;
 
@@ -336,7 +336,7 @@ public:
 			int x = r % 9;
 			int num = sd.get(y, x);
 			sd.set(y, x, num);
-			sd.print();
+			//sd.print();
 			preGene = sd.get_board();
 		}
 		return;
