@@ -11,7 +11,7 @@ template<class T> inline void put(const T& first) { std::cout << first << "\n"; 
 namespace {
 	struct cor {
 		int x, y, sz;
-		cor(int x, int y,int sz): x(x), y(y), sz(sz) {}
+		cor(int x, int y, int sz) : x(x), y(y), sz(sz) {}
 		cor() :x(0), y(0), sz(0) {}
 		bool operator<(const cor& c) const {
 			if (y == c.y) {
@@ -40,7 +40,7 @@ namespace {
 	}
 	void init() {
 		table.resize(n);
-		for (int i = 0; i < n; i++)  {
+		for (int i = 0; i < n; i++) {
 			table[i].resize(m, 0);
 		}
 		for (int i = 0; i < q; ++i) {
@@ -105,8 +105,23 @@ namespace {
 		}
 		return res;
 	}
-	string pad(int num, int wid = 1) {
+	/*string to_string(int num) {
 		string res = "";
+		if (num < 0) {
+			res += "-";
+			num *= -1;
+		}
+		string tmp = "";
+		while (num > 0) {
+			num /= 10;
+			tmp += (char)((num % 10) + '0');
+		}
+		reverse(tmp.begin(), tmp.end());
+		res += tmp;
+		return res;
+	}*/
+	string pad(int num, int wid = 1) {
+ 		string res = "";
 		int w = len(num);
 		for (int i = 0; i < wid - w; i++) {
 			res += "0";
@@ -119,7 +134,8 @@ namespace {
 		int wid = len(q);
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
-				cout << pad(table[i][j], wid) << " ";
+				string tmp = pad(table[i][j], wid);
+				cout << tmp << " ";
 			}
 			cout << "\n";
 		}
@@ -166,11 +182,11 @@ namespace {
 				}
 			}
 		}
-		
+
 		return;
 	}
 	void cand_reset() {
-		for (int i = 0; i < n; i++){
+		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
 				cand[i][j].clear();
 			}
@@ -216,12 +232,12 @@ namespace {
 								if (!check(table, ny, nx, index)) {
 									flag = false;
 								}
-								if (range(ny,nx) && table[ny][nx] == index + 1) {
+								if (range(ny, nx) && table[ny][nx] == index + 1) {
 									tmp++;
 								}
 							}
 						}
-						if (flag && tmp==cnt[index]) {
+						if (flag && tmp == cnt[index]) {
 							suc[index]++;
 							for (int k = 0; k < n; ++k) {
 								for (int l = 0; l < m; ++l) {
@@ -275,15 +291,15 @@ namespace {
 						for (auto t : det[i][j]) { // 一つ->確定というより、積集合の部分を確定とした方が応用が利く(実装は面倒)
 							t--;
 							//if (suc[t] == 1) {
-								res = true;
-								int y = min(i, c[t].y);
-								int x = min(j, c[t].x);
-								int h = abs(i - c[t].y) + 1;
-								int w = abs(j - c[t].x) + 1;
-								set(table, y, x, h, w, t + 1);
+							res = true;
+							int y = min(i, c[t].y);
+							int x = min(j, c[t].x);
+							int h = abs(i - c[t].y) + 1;
+							int w = abs(j - c[t].x) + 1;
+							set(table, y, x, h, w, t + 1);
 							//}
 						}
-						
+
 					}
 				}
 			}
@@ -295,16 +311,16 @@ namespace {
 			//print(table);
 		}
 	}
-	void dfs2(int y,int x) {
+	void dfs2(int y, int x) {
 		agent();
 	}
 	void solve() {
-		input();
-		//print(table);
 		auto start = chrono::system_clock::now();
+		input();
 		//dfs(0);
 		sort(c.begin(), c.end());
 		init();
+		//print(table);
 		init2();
 		// 確定してからdfs
 		agent();
@@ -312,8 +328,10 @@ namespace {
 		auto end = chrono::system_clock::now();
 		long long time = static_cast<long long>(chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000.0);
 		long long ns = time;
-		long long ms = ns / 1000;
+		long long us = ns / 1000;
 		ns %= 1000;
+		long long ms = us / 1000;
+		us %= 1000;
 		long long sec = ms / 1000;
 		ms %= 1000;
 		long long min = sec / 60;
@@ -321,7 +339,7 @@ namespace {
 		print(table);
 		cout << "find : " << cnt << "times \n";
 		cout << time << " [ns]\n";
-		printf("time : %lld [min] %lld [sec] %lld [ms] %lld [ns]", min, sec, ms, ns);
+		printf("time : %lld [min] %lld [sec] %lld [ms] %lld [us] %lld [ns]", min, sec, ms, us, ns);
 	}
 }
 
