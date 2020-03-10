@@ -381,7 +381,7 @@ void print_solve(vector<vector<int>>& table,vector<vector<int>>& init_table) {
 }
 void solve() {
     input();
-    print(table);
+    ///print(table);
     auto start = chrono::system_clock::now();
     //dfs(0);
     sort(c.begin(), c.end());
@@ -389,9 +389,9 @@ void solve() {
     init2();
     // 確定してからdfs
     agent();
-    dfs(0);
+    //dfs(0);
     auto end = chrono::system_clock::now();
-    long long time = static_cast<long long>(chrono::duration_cast<chrono::nanoseconds>(end - start).count() / 1000.0);
+    long long time = static_cast<long long>(chrono::duration_cast<chrono::nanoseconds>(end - start).count());
     long long ns = time;
     long long ms = ns / 1000;
     ns %= 1000;
